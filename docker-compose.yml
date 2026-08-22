@@ -17,5 +17,23 @@ services:
       timeout: 5s
       retries: 5
 
+  api:
+    build:
+      context: ./anuncia-ai
+    container_name: anuncia_ai_api
+    restart: unless-stopped
+    env_file:
+      - ./anuncia-ai/.env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./anuncia-ai:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   anuncia_ai_postgres_data:
