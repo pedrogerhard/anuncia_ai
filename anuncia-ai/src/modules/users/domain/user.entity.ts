@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { UserAlreadyDeletedError } from './errors/user-already-deleted.error';
 
 export interface UserProps {
   id: string;
@@ -6,6 +7,7 @@ export interface UserProps {
   email: string;
   passwordHash: string;
   phone: string;
+  deletedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,9 +30,22 @@ export class User {
       email: input.email,
       passwordHash: input.passwordHash,
       phone: input.phone,
+      deletedAt: null,
       createdAt: now,
       updatedAt: now,
     });
+  }
+
+  /** Faz soft delete do usuário. */
+  delete(): void {
+    if (this.props.deletedAt !== null) {
+      throw new UserAlreadyDeletedError(this.props.id);
+    }
+
+    const now = new Date();
+
+    this.props.deletedAt = now;
+    this.props.updatedAt = now;
   }
 
   /** Reconstrói um usuário já existente a partir de dados persistidos (sem reaplicar regras de criação). */
@@ -56,6 +71,10 @@ export class User {
 
   get phone(): string {
     return this.props.phone;
+  }
+
+  get deletedAt(): Date | null {
+    return this.props.deletedAt;
   }
 
   get createdAt(): Date {
