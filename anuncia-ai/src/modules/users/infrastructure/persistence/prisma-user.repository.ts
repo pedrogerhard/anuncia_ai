@@ -33,6 +33,7 @@ export class PrismaUserRepository implements UserRepository {
         email: user.email,
         passwordHash: user.passwordHash,
         phone: user.phone,
+        deletedAt: user.deletedAt,
         updatedAt: user.updatedAt,
       },
     });

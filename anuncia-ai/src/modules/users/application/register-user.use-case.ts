@@ -4,7 +4,7 @@ import type { PasswordHasher } from '../domain/password-hasher';
 import { User } from '../domain/user.entity';
 import { USER_REPOSITORY } from '../domain/user.repository';
 import type { UserRepository } from '../domain/user.repository';
-import { UserAlreadyExistsError } from './errors/user-already-exists.error';
+import { UserAlreadyExistsError } from '../domain/errors/user-already-exists.error';
 
 export interface RegisterUserInput {
   name: string;
