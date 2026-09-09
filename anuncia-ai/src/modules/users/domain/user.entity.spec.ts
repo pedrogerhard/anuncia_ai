@@ -1,5 +1,4 @@
 import { UserAlreadyDeletedError } from './errors/user-already-deleted.error';
-import { UserAlreadyExistsError } from './errors/user-already-exists.error';
 import { User } from './user.entity';
 
 describe('User', () => {
@@ -31,7 +30,7 @@ describe('User', () => {
         name: 'Pedro Teste',
         email: 'pedro@teste.com',
         passwordHash: 'hash-fake-nao-e-a-senha-real',
-        phone: '11999999999'
+        phone: '11999999999',
       });
 
       // Act: executa a ação de deletar o usuário
@@ -44,11 +43,11 @@ describe('User', () => {
 
     it('deve lançar um erro se o usuário já estiver deletado', () => {
       // Arrange: cria um usuário e o deleta
-            const user = User.create({
+      const user = User.create({
         name: 'Pedro Teste',
         email: 'pedro@teste.com',
         passwordHash: 'hash-fake-nao-e-a-senha-real',
-        phone: '11999999999'
+        phone: '11999999999',
       });
       user.delete();
 

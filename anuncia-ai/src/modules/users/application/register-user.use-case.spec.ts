@@ -14,9 +14,10 @@ describe('RegisterUserUseCase', () => {
       phone: '11999999999',
     });
 
+    const saveMock = jest.fn();
     const userRepository: UserRepository = {
       findByEmail: jest.fn().mockResolvedValue(existingUser),
-      save: jest.fn(),
+      save: saveMock,
     };
 
     const passwordHasher: PasswordHasher = {
@@ -37,6 +38,6 @@ describe('RegisterUserUseCase', () => {
     ).rejects.toThrow(UserAlreadyExistsError);
 
     // Assert extra: confirma que o use case nem tentou salvar o novo usuário
-    expect(userRepository.save).not.toHaveBeenCalled();
+    expect(saveMock).not.toHaveBeenCalled();
   });
 });

@@ -1,4 +1,13 @@
-import { Body, ConflictException, Controller, Delete, GoneException, NotFoundException, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Delete,
+  GoneException,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { RegisterUserUseCase } from '../../application/register-user.use-case';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { UserAlreadyExistsError } from '../../domain/errors/user-already-exists.error';
